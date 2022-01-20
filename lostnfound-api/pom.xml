@@ -17,7 +17,9 @@
   <properties>
     <java.version>11</java.version>
     <kotlin.version>1.6.10</kotlin.version>
+    <mapstruct.version>1.4.2.Final</mapstruct.version>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -46,6 +48,11 @@
     <dependency>
       <groupId>org.jetbrains.kotlinx</groupId>
       <artifactId>kotlinx-coroutines-reactor</artifactId>
+    </dependency>
+    <!-- TODO temporary, for testing -->
+    <dependency>
+      <groupId>de.flapdoodle.embed</groupId>
+      <artifactId>de.flapdoodle.embed.mongo</artifactId>
     </dependency>
 
     <dependency>
