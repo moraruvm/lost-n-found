@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class UserMapper {
 
-    fun toEntity(user: UserDto): User {
+    fun toDocument(user: UserDto): User {
         return User(displayName = user.displayName, location = user.location)
     }
 

@@ -10,25 +10,23 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-class UserController(val service: UserService, val userMapper: UserMapper) {
+class UserController(val service: UserService) {
 
     @PostMapping("/user")
     fun create(@RequestBody user: UserDto): Mono<ResponseEntity<UserDto>> {
-        return service.create(userMapper.toEntity(user))
-                .map(userMapper::toDto)
+        return service.create(user)
                 .map { ResponseEntity.ok(it) }
     }
 
     @GetMapping("/user/{id}")
     fun get(@PathVariable id: String): Mono<ResponseEntity<UserDto>> {
         return service.read(id)
-                .map(userMapper::toDto)
                 .map { ResponseEntity.ok(it) }
                 .defaultIfEmpty(ResponseEntity.notFound().build())
     }
 
     @GetMapping("/users")
     fun get(): ResponseEntity<Flux<UserDto>> {
-        return ResponseEntity.ok(service.findAll().map(userMapper::toDto))
+        return ResponseEntity.ok(service.findAll())
     }
 }
