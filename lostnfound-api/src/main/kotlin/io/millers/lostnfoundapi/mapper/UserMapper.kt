@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class UserMapper {
 
     fun toEntity(user: UserDto): User {
-        return User(user.id, user.displayName, user.location)
+        return User(displayName = user.displayName, location = user.location)
     }
 
     fun toDto(user: User): UserDto {

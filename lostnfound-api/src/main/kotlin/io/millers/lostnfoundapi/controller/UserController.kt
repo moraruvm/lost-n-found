@@ -2,25 +2,26 @@ package io.millers.lostnfoundapi.controller
 
 import io.millers.lostnfoundapi.dto.UserDto
 import io.millers.lostnfoundapi.mapper.UserMapper
-import io.millers.lostnfoundapi.repo.UserRepo
+import io.millers.lostnfoundapi.service.UserService
+import org.bson.types.ObjectId
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-class UserController(val repo: UserRepo, val userMapper: UserMapper) {
+class UserController(val service: UserService, val userMapper: UserMapper) {
 
     @PostMapping("/user")
     fun create(@RequestBody user: UserDto): Mono<ResponseEntity<UserDto>> {
-        return repo.save(userMapper.toEntity(user))
+        return service.create(userMapper.toEntity(user))
                 .map(userMapper::toDto)
                 .map { ResponseEntity.ok(it) }
     }
 
     @GetMapping("/user/{id}")
     fun get(@PathVariable id: String): Mono<ResponseEntity<UserDto>> {
-        return repo.findById(id)
+        return service.read(id)
                 .map(userMapper::toDto)
                 .map { ResponseEntity.ok(it) }
                 .defaultIfEmpty(ResponseEntity.notFound().build())
@@ -28,6 +29,6 @@ class UserController(val repo: UserRepo, val userMapper: UserMapper) {
 
     @GetMapping("/users")
     fun get(): ResponseEntity<Flux<UserDto>> {
-        return ResponseEntity.ok(repo.findAll().map(userMapper::toDto))
+        return ResponseEntity.ok(service.findAll().map(userMapper::toDto))
     }
 }

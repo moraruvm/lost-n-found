@@ -1,4 +1,4 @@
-package io.millers.lostnfoundapi.entity.parts
+package io.millers.lostnfoundapi.dto.parts
 
 data class Location(
         var lat: Double,

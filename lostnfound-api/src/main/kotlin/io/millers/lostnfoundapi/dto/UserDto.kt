@@ -1,6 +1,6 @@
 package io.millers.lostnfoundapi.dto
 
-import io.millers.lostnfoundapi.entity.parts.Location
+import io.millers.lostnfoundapi.dto.parts.Location
 
 data class UserDto(
         val id: String?,
