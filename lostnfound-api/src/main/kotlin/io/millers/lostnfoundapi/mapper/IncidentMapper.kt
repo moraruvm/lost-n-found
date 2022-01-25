@@ -7,20 +7,28 @@ import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
 @Component
-class IncidentMapper {
+class IncidentMapper(private val partMapper: PartMapper) {
 
     fun toDocument(createDto: UpsertIncidentDto, authorId: String): Incident {
         return Incident(
-                title = createDto.title,
-                type = createDto.type,
-                location = createDto.location,
-                createdAt = LocalDateTime.now(),
-                open = false,
-                authorId = authorId
-        );
+            title = createDto.title,
+            type = createDto.type,
+            location = partMapper.toDocument(createDto.location),
+            createdAt = LocalDateTime.now(),
+            open = false,
+            authorId = authorId
+        )
     }
 
     fun toDto(doc: Incident): IncidentDto {
-        return IncidentDto(doc.id, doc.title, doc.type, doc.location, doc.createdAt, doc.open, doc.authorId)
+        return IncidentDto(
+            doc.id,
+            doc.title,
+            doc.type,
+            partMapper.toDto(doc.location),
+            doc.createdAt,
+            doc.open,
+            doc.authorId
+        )
     }
 }
