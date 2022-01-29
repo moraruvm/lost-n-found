@@ -31,17 +31,12 @@ class UserService(
             ?.map(mapper::toDto) ?: Mono.empty()
     }
 
-    fun find(geoSearch: GeoSearch?): Flux<UserDto> {
-        return geoSearch?.let { findAll(it) } ?: findAll()
+    fun find(): Flux<UserDto> {
+        return findAll()
     }
 
     private fun findAll(): Flux<UserDto> {
         return repo.findAll().map(mapper::toDto)
-    }
-
-    private fun findAll(geo: GeoSearch): Flux<UserDto> {
-        return repo.findAllByLocationNear(Point(geo.lat, geo.lon), Distance(geo.range))
-            .map(mapper::toDto)
     }
 
 }

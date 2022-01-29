@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class PartMapper {
-    fun toDocument(location: Location) = Point(location.lat, location.lon)
+    fun toDocument(location: Location) = Point(location.lon, location.lat)
     fun toDto(geoPoint: Point) = Location(geoPoint.x, geoPoint.y)
 }

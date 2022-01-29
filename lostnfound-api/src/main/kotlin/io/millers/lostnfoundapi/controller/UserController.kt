@@ -26,8 +26,8 @@ class UserController(val service: UserService) {
     }
 
     @GetMapping("/users")
-    fun find(@RequestParam geoStr: String?): ResponseEntity<Flux<UserDto>> {
-        return ResponseEntity.ok(service.find(GeoSearch.of(geoStr)))
+    fun find(): ResponseEntity<Flux<UserDto>> {
+        return ResponseEntity.ok(service.find())
     }
 
 }
